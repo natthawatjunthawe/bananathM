@@ -13,3 +13,31 @@ function oE(t){document.getElementById('et').innerText=t.name.toUpperCase();ed.v
 function sL(){lnT.innerHTML=Array(ed.value.split('\n').length).fill(0).map((_,i)=>i+1).join('<br>')}
 async function exp(){try{let c=JSON.parse(ed.value),z=new JSZip();z.file("index.html",`<!DOCTYPE html><html><head><title>${c.title}</title><link rel="stylesheet" href="style.css"></head><body>${c.html}\n<script src="script.js"><\/script></body></html>`);z.file("style.css",c.css||"");z.file("script.js",c.js||"");z.file("data.json",JSON.stringify(c,null,2));let b=await z.generateAsync({type:"blob"});saveAs(b,`bnn_export_${Date.now()}.zip`);Swal.fire({icon:'success',title:'EXPORTED',text:'Bundle extracted securely.',confirmButtonColor:'#000'})}catch(e){Swal.fire('Error','Check JSON Syntax','error')}}
 window.onload=init;document.getElementById('je').oninput=sL;
+
+function initDashboard() {
+    const animateValue = (id, start, end, duration) => {
+        let obj = document.getElementById(id);
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    const externalLink = document.querySelector('.external-link');
+    if (externalLink) {
+        externalLink.addEventListener('click', (e) => {
+            console.log('Redirecting to external source...');
+        });
+    }
+
+    animateValue('stat1', 0, 24593, 1500);
+    animateValue('stat2', 0, 843, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', initDashboard);
