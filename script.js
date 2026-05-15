@@ -1,5 +1,49 @@
 let db={},u=null,ed,lnT,isL=1;
-async function init(){ed=document.getElementById('je');lnT=document.getElementById('ln');try{let r=await fetch('data.json');db=await r.json()}catch(e){db={logo:"https://placehold.co/400x100/000/FFF?text=BANANATH",tpls:[]}}document.getElementById('al').src=db.logo;document.getElementById('dl').src=db.logo;chk()}
+
+async function init(){
+    ed=document.getElementById('je');
+    lnT=document.getElementById('ln');
+    try{
+        let r=await fetch('data.json');
+        db=await r.json();
+    }catch(e){
+        db={logo:"https://placehold.co/400x100/000/FFF?text=BANANATH",tpls:[]};
+    }
+    document.getElementById('al').src=db.logo;
+    document.getElementById('dl').src=db.logo;
+    
+    applyGlobalConfig();
+    chk();
+}
+
+function applyGlobalConfig() {
+    const b = document.body;
+    if(db.bg_type === 'image') {
+        b.style.backgroundImage = `url('${db.bg_value}')`;
+        b.style.backgroundSize = 'cover';
+        b.style.backgroundAttachment = 'fixed';
+    } else {
+        b.style.backgroundColor = db.bg_value || '#f8fafc';
+    }
+
+    if(db.footer) {
+        const fHtml = `
+            <footer class="fixed bottom-0 left-0 w-full bg-black/80 backdrop-blur-lg border-t border-white/10 p-4 flex justify-between items-center z-[100]">
+                <div class="flex items-center gap-4">
+                    <span class="text-[10px] font-black text-white/40 tracking-widest uppercase">${db.footer.copyright}</span>
+                </div>
+                <div class="flex gap-6">
+                    ${db.footer.links.map(l => `
+                        <a href="${l.url}" target="_blank" class="text-[10px] font-bold text-blue-400 hover:text-white transition-all uppercase tracking-tighter">
+                            ${l.label} <i class="fas fa-external-link-alt ml-1 text-[8px]"></i>
+                        </a>
+                    `).join('')}
+                </div>
+            </footer>`;
+        document.body.insertAdjacentHTML('beforeend', fHtml);
+    }
+}
+
 function chk(){let d=localStorage.getItem('bnn_u');if(d){u=JSON.parse(d);upd();ld()}else sh('av')}
 function togA(){isL=!isL;document.getElementById('su_f').style.display=isL?'none':'block';document.getElementById('atx').innerText=isL?'Sign In':'Sign Up'}
 function auth(){let n=document.getElementById('un').value,p=document.getElementById('pw').value,i=document.getElementById('pu').value,b=document.getElementById('pb').value;if(!n||!p)return Swal.fire('Error','Required fields missing','error');if(!isL){u={n:n,p:p,i:i||`https://placehold.co/100/000/fff?text=${n[0].toUpperCase()}`,b:b||'Developer'};localStorage.setItem('bnn_u',JSON.stringify(u))}else{let d=localStorage.getItem('bnn_u');if(!d)return Swal.fire('Error','Account not found','error');let t=JSON.parse(d);if(t.n!==n||t.p!==p)return Swal.fire('Error','Invalid credentials','error');u=t}upd();ld()}
@@ -8,36 +52,8 @@ function lo(){localStorage.removeItem('bnn_u');location.reload()}
 function upd(){if(!u)return;document.getElementById('dn').innerText=u.n;document.getElementById('di').src=u.i;document.getElementById('pn').value=u.n;document.getElementById('pi').value=u.i;document.getElementById('pbio').value=u.b}
 function svP(){u.n=document.getElementById('pn').value;u.i=document.getElementById('pi').value;u.b=document.getElementById('pbio').value;localStorage.setItem('bnn_u',JSON.stringify(u));upd();sh('dv');Swal.fire('Saved','Profile updated','success')}
 function sh(id){document.querySelectorAll('.v').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='dv')gsap.from("#tg > div",{opacity:0,y:20,stagger:.05,duration:.6,ease:"power3.out"})}
-function rG(){document.getElementById('tg').innerHTML=db.tpls.map(t=>`<div class="card-hover bg-white rounded-3xl p-6 border border-slate-100 cursor-pointer" onclick='oE(${JSON.stringify(t).replace(/'/g,"&#39;")})'><img src="${t.thumb}" onerror="this.src='https://placehold.co/400?text=IMG'" class="w-full h-48 object-cover rounded-2xl mb-6 bg-slate-100"><h3 class="text-xl font-extrabold">${t.name}</h3><p class="text-xs font-bold text-blue-500 mt-2 uppercase">Ready</p></div>`).join('')}
+function rG(){document.getElementById('tg').innerHTML=db.tpls.map(t=>`<div class="card-hover bg-white/90 backdrop-blur-md rounded-3xl p-6 border border-white/20 cursor-pointer" onclick='oE(${JSON.stringify(t).replace(/'/g,"&#39;")})'><img src="${t.thumb}" onerror="this.src='https://placehold.co/400?text=IMG'" class="w-full h-48 object-cover rounded-2xl mb-6 bg-slate-100"><h3 class="text-xl font-extrabold">${t.name}</h3><p class="text-xs font-bold text-blue-500 mt-2 uppercase">Ready</p></div>`).join('')}
 function oE(t){document.getElementById('et').innerText=t.name.toUpperCase();ed.value=JSON.stringify(t.config,null,4);sh('ev');sL()}
 function sL(){lnT.innerHTML=Array(ed.value.split('\n').length).fill(0).map((_,i)=>i+1).join('<br>')}
 async function exp(){try{let c=JSON.parse(ed.value),z=new JSZip();z.file("index.html",`<!DOCTYPE html><html><head><title>${c.title}</title><link rel="stylesheet" href="style.css"></head><body>${c.html}\n<script src="script.js"><\/script></body></html>`);z.file("style.css",c.css||"");z.file("script.js",c.js||"");z.file("data.json",JSON.stringify(c,null,2));let b=await z.generateAsync({type:"blob"});saveAs(b,`bnn_export_${Date.now()}.zip`);Swal.fire({icon:'success',title:'EXPORTED',text:'Bundle extracted securely.',confirmButtonColor:'#000'})}catch(e){Swal.fire('Error','Check JSON Syntax','error')}}
 window.onload=init;document.getElementById('je').oninput=sL;
-
-function initDashboard() {
-    const animateValue = (id, start, end, duration) => {
-        let obj = document.getElementById(id);
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
-    };
-
-    const externalLink = document.querySelector('.external-link');
-    if (externalLink) {
-        externalLink.addEventListener('click', (e) => {
-            console.log('Redirecting to external source...');
-        });
-    }
-
-    animateValue('stat1', 0, 24593, 1500);
-    animateValue('stat2', 0, 843, 1000);
-}
-
-document.addEventListener('DOMContentLoaded', initDashboard);
