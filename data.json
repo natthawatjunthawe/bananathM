@@ -19,7 +19,7 @@
     {
       "id": "app_01",
       "name": "Quantum Landing",
-      "thumb": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
+      "thumb": "QuantumLanding.jpg",
       "config": {
         "title": "Quantum",
         "libs": [
