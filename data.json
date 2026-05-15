@@ -1,1 +1,45 @@
-{"logo":"https://placehold.co/400x100/000/FFF?text=BANANATH+CORE","bg":"https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070","policy_url":"https://www.google.com/policies/privacy/","tpls":[{"id":"app_01","name":"Quantum Landing","thumb":"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400","config":{"title":"Quantum","libs":["https://cdn.tailwindcss.com"],"css":"body{background:#f8fafc;color:#000;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}","js":"console.log('App Ready');","html":"<div><h1>FUTURE IS NOW</h1></div>"}},{"id":"app_02","name":"Neo Dashboard","thumb":"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400","config":{"title":"Dashboard","libs":[],"css":"body{background:#111;color:#fff}","js":"alert('Neo Loaded')","html":"<h1>Neo Dashboard</h1>"}},{"id":"app_03","name":"Onyx Store","thumb":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400","config":{"title":"Onyx","libs":[],"css":"","js":"","html":"<h1>Store</h1>"}}]}
+{
+  "logo": "https://placehold.co/400x100/000/FFF?text=BANANATH+CORE",
+  "bg": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070",
+  "policy_url": "https://www.google.com/policies/privacy/",
+  "tpls": [
+    {
+      "id": "app_01",
+      "name": "Quantum Landing",
+      "thumb": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
+      "config": {
+        "title": "Quantum",
+        "libs": [
+          "https://cdn.tailwindcss.com"
+        ],
+        "css": "body { margin: 0; font-family: system-ui, sans-serif; }",
+        "js": "function startQuantum(){ alert('Quantum Systems Initialized.'); } console.log('App 01: Quantum Ready');",
+        "html": "<div class='min-h-screen bg-slate-50 flex flex-col'><header class='p-6 bg-white shadow-sm flex justify-between items-center'><img src='https://placehold.co/400x100/000/FFF?text=BANANATH+CORE' alt='Logo' class='h-8'><nav><a href='#' class='text-slate-600 hover:text-black font-semibold'>Home</a></nav></header><main class='flex-grow flex flex-col items-center justify-center text-center p-6 relative overflow-hidden'><div class='absolute inset-0 z-0'><img src='https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070' class='w-full h-full object-cover opacity-20' alt='bg'></div><div class='z-10 bg-white/90 p-10 rounded-2xl shadow-xl backdrop-blur-md max-w-2xl'><h1 class='text-5xl font-extrabold tracking-tight text-slate-900 mb-4'>FUTURE IS NOW</h1><p class='text-lg text-slate-600 mb-8'>Experience the quantum leap in digital architecture.</p><button onclick='startQuantum()' class='bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition-colors shadow-lg'>Get Started</button></div></main><footer class='p-6 text-center text-sm text-slate-500'><a href='https://www.google.com/policies/privacy/' target='_blank' class='hover:underline'>Privacy Policy</a></footer></div>"
+      }
+    },
+    {
+      "id": "app_02",
+      "name": "Neo Dashboard",
+      "thumb": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
+      "config": {
+        "title": "Dashboard",
+        "libs": [],
+        "css": "* { box-sizing: border-box; } body { background: #111; color: #fff; margin: 0; font-family: system-ui, sans-serif; } .neo-layout { display: flex; min-height: 100vh; } .neo-sidebar { width: 250px; background: #1a1a1a; padding: 25px 20px; border-right: 1px solid #333; } .neo-brand { font-size: 1.5rem; font-weight: bold; margin-bottom: 40px; color: #00ffcc; letter-spacing: 2px; } .neo-nav { list-style: none; padding: 0; margin: 0; } .neo-nav li { margin-bottom: 20px; } .neo-nav a { color: #888; text-decoration: none; transition: color 0.3s; font-size: 1.1rem; } .neo-nav a:hover { color: #fff; } .neo-main { flex: 1; padding: 40px; display: flex; flex-direction: column; gap: 30px; } .neo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 20px; } .neo-header h2 { margin: 0; } #neo-time { color: #00ffcc; font-family: monospace; font-size: 1.2rem; } .neo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; } .neo-card { background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #333; transition: transform 0.2s, border-color 0.2s; } .neo-card:hover { transform: translateY(-5px); border-color: #00ffcc; } .neo-card h3 { margin: 0 0 15px 0; color: #888; font-size: 1rem; text-transform: uppercase; } .neo-stat { font-size: 2.5rem; font-weight: bold; margin: 0; color: #fff; }",
+        "js": "function updateTime() { const now = new Date(); const timeStr = now.toLocaleTimeString(); const timeEl = document.getElementById('neo-time'); if(timeEl) timeEl.innerText = timeStr; } setInterval(updateTime, 1000); updateTime(); console.log('App 02: Neo Loaded');",
+        "html": "<div class='neo-layout'><aside class='neo-sidebar'><div class='neo-brand'>NEO PANEL</div><ul class='neo-nav'><li><a href='#'>Overview</a></li><li><a href='#'>Analytics</a></li><li><a href='#'>Settings</a></li></ul></aside><main class='neo-main'><header class='neo-header'><h2>Dashboard</h2><div id='neo-time'></div></header><div class='neo-grid'><div class='neo-card'><h3>Active Users</h3><p class='neo-stat'>1,204</p></div><div class='neo-card'><h3>Daily Revenue</h3><p class='neo-stat'>$8,400</p></div><div class='neo-card'><h3>System Load</h3><p class='neo-stat'>24%</p></div></div></main></div>"
+      }
+    },
+    {
+      "id": "app_03",
+      "name": "Onyx Store",
+      "thumb": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400",
+      "config": {
+        "title": "Onyx",
+        "libs": [],
+        "css": "* { box-sizing: border-box; } body { background: #fafafa; color: #222; margin: 0; font-family: system-ui, sans-serif; } .onyx-app { max-width: 1200px; margin: 0 auto; padding: 0 20px; min-height: 100vh; display: flex; flex-direction: column; } .onyx-nav { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 2px solid #eee; margin-bottom: 40px; align-items: center; } .onyx-logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 3px; } .onyx-cart { font-weight: bold; background: #222; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; } .onyx-hero { text-align: center; margin-bottom: 60px; } .onyx-hero h1 { font-size: 3.5rem; margin: 0 0 15px 0; font-weight: 800; } .onyx-hero p { color: #666; font-size: 1.2rem; margin: 0; } .onyx-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 60px; flex-grow: 1; } .onyx-product { text-align: center; background: #fff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s; } .onyx-product:hover { transform: translateY(-10px); } .img-placeholder { height: 250px; border-radius: 12px; margin-bottom: 20px; } .onyx-product h4 { margin: 0 0 10px 0; font-size: 1.2rem; } .onyx-product p { color: #888; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold; } button.add-btn { background: #222; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; transition: background 0.3s, transform 0.1s; font-weight: bold; width: 100%; } button.add-btn:hover { background: #000; } button.add-btn:active { transform: scale(0.98); } .onyx-footer { text-align: center; padding: 30px 0; border-top: 1px solid #eee; color: #aaa; font-size: 0.9rem; }",
+        "js": "let cartItemCount = 0; function addToCart() { cartItemCount++; const cartCounter = document.getElementById('cart-count'); if(cartCounter) { cartCounter.innerText = cartItemCount; cartCounter.style.transform = 'scale(1.2)'; setTimeout(() => cartCounter.style.transform = 'scale(1)', 200); } } console.log('App 03: Onyx Store Ready');",
+        "html": "<div class='onyx-app'><nav class='onyx-nav'><div class='onyx-logo'>ONYX</div><div class='onyx-cart'>Cart (<span id='cart-count' style='display:inline-block; transition: transform 0.2s;'>0</span>)</div></nav><header class='onyx-hero'><h1>Minimalist Aesthetics.</h1><p>Discover the new core collection.</p></header><main class='onyx-products'><div class='onyx-product'><div class='img-placeholder' style='background:#e2e8f0'></div><h4>Onyx Watch</h4><p>$199</p><button class='add-btn' onclick='addToCart()'>Add to Cart</button></div><div class='onyx-product'><div class='img-placeholder' style='background:#cbd5e1'></div><h4>Onyx Wallet</h4><p>$49</p><button class='add-btn' onclick='addToCart()'>Add to Cart</button></div><div class='onyx-product'><div class='img-placeholder' style='background:#94a3b8'></div><h4>Onyx Backpack</h4><p>$129</p><button class='add-btn' onclick='addToCart()'>Add to Cart</button></div></main><footer class='onyx-footer'>&copy; 2026 Onyx Ecosystem. All rights reserved.</footer></div>"
+      }
+    }
+  ]
+}
