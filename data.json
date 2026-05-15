@@ -17,7 +17,7 @@
   },
   "tpls": [
     {
-      "id": "app_01",
+      "id": "app_03",
       "name": "Quantum Landing",
       "thumb": "QuantumLanding.jpg",
       "config": {
@@ -43,15 +43,15 @@
       }
     },
     {
-      "id": "app_03",
+      "id": "app_01",
       "name": "Onyx Store",
       "thumb": "Onyx.jpg",
       "config": {
         "title": "Onyx",
         "libs": [],
-        "css": "*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#fff;color:#000}.container{max-width:1440px;margin:0 auto;padding:0 40px}.nav{display:flex;justify-content:space-between;padding:32px 0;border-bottom:1px solid #eee}.logo{font-size:24px;font-weight:900}.hero{height:40vh;display:flex;align-items:center;justify-content:center;background:#f8f8f8;margin-bottom:40px}.hero h1{font-size:4rem;font-weight:800;margin:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:40px}",
-        "js": "console.log('Onyx Store Loaded');",
-        "html": "<div class='container'><nav class='nav'><div class='logo'>ONYX.</div><div>Cart (0)</div></nav><header class='hero'><h1>NEW ARRIVALS</h1></header><div class='grid'><div style='height:400px;background:#f0f0f0'></div><div style='height:400px;background:#f0f0f0'></div><div style='height:400px;background:#f0f0f0'></div></div></div>"
+        "css": "",
+        "js": "",
+        "html": ""
       }
     }
   ]
