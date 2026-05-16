@@ -1,59 +1,21 @@
-let db={},u=null,ed,lnT,isL=1;
-
-async function init(){
-    ed=document.getElementById('je');
-    lnT=document.getElementById('ln');
-    try{
-        let r=await fetch('data.json');
-        db=await r.json();
-    }catch(e){
-        db={logo:"https://placehold.co/400x100/000/FFF?text=BANANATH",tpls:[]};
-    }
-    document.getElementById('al').src=db.logo;
-    document.getElementById('dl').src=db.logo;
-    
-    applyGlobalConfig();
-    chk();
-}
-
-function applyGlobalConfig() {
-    const b = document.body;
-    if(db.bg_type === 'image') {
-        b.style.backgroundImage = `url('${db.bg_value}')`;
-        b.style.backgroundSize = 'cover';
-        b.style.backgroundAttachment = 'fixed';
-    } else {
-        b.style.backgroundColor = db.bg_value || '#f8fafc';
-    }
-
-    if(db.footer) {
-        const fHtml = `
-            <footer class="fixed bottom-0 left-0 w-full bg-black/80 backdrop-blur-lg border-t border-white/10 p-4 flex justify-between items-center z-[100]">
-                <div class="flex items-center gap-4">
-                    <span class="text-[10px] font-black text-white/40 tracking-widest uppercase">${db.footer.copyright}</span>
-                </div>
-                <div class="flex gap-6">
-                    ${db.footer.links.map(l => `
-                        <a href="${l.url}" target="_blank" class="text-[10px] font-bold text-blue-400 hover:text-white transition-all uppercase tracking-tighter">
-                            ${l.label} <i class="fas fa-external-link-alt ml-1 text-[8px]"></i>
-                        </a>
-                    `).join('')}
-                </div>
-            </footer>`;
-        document.body.insertAdjacentHTML('beforeend', fHtml);
-    }
-}
-
-function chk(){let d=localStorage.getItem('bnn_u');if(d){u=JSON.parse(d);upd();ld()}else sh('av')}
+let db={tpls:[]},uDB={},u=null,cf=null,ed,lnT,isL=1;
+async function init(){ed=document.getElementById('je');lnT=document.getElementById('ln');try{let r=await fetch('data.json');db=await r.json()}catch(e){}let d=localStorage.getItem('bnn_udb');if(d)uDB=JSON.parse(d);chk()}
+function tB64(f){return new Promise((r,j)=>{let rd=new FileReader();rd.onload=()=>r(rd.result);rd.onerror=j;rd.readAsDataURL(f)})}
+function tTxt(f){return new Promise((r,j)=>{let rd=new FileReader();rd.onload=()=>r(rd.result);rd.onerror=j;rd.readAsText(f)})}
+function chk(){let c=sessionStorage.getItem('bnn_cur');if(c&&uDB[c]){u=uDB[c];upd();ld(()=>sh('dv'))}else sh('av')}
 function togA(){isL=!isL;document.getElementById('su_f').style.display=isL?'none':'block';document.getElementById('atx').innerText=isL?'Sign In':'Sign Up'}
-function auth(){let n=document.getElementById('un').value,p=document.getElementById('pw').value,i=document.getElementById('pu').value,b=document.getElementById('pb').value;if(!n||!p)return Swal.fire('Error','Required fields missing','error');if(!isL){u={n:n,p:p,i:i||`https://placehold.co/100/000/fff?text=${n[0].toUpperCase()}`,b:b||'Developer'};localStorage.setItem('bnn_u',JSON.stringify(u))}else{let d=localStorage.getItem('bnn_u');if(!d)return Swal.fire('Error','Account not found','error');let t=JSON.parse(d);if(t.n!==n||t.p!==p)return Swal.fire('Error','Invalid credentials','error');u=t}upd();ld()}
-function ld(){sh('lv');setTimeout(()=>{sh('dv');rG()},6000)}
-function lo(){localStorage.removeItem('bnn_u');location.reload()}
-function upd(){if(!u)return;document.getElementById('dn').innerText=u.n;document.getElementById('di').src=u.i;document.getElementById('pn').value=u.n;document.getElementById('pi').value=u.i;document.getElementById('pbio').value=u.b}
-function svP(){u.n=document.getElementById('pn').value;u.i=document.getElementById('pi').value;u.b=document.getElementById('pbio').value;localStorage.setItem('bnn_u',JSON.stringify(u));upd();sh('dv');Swal.fire('Saved','Profile updated','success')}
-function sh(id){document.querySelectorAll('.v').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='dv')gsap.from("#tg > div",{opacity:0,y:20,stagger:.05,duration:.6,ease:"power3.out"})}
-function rG(){document.getElementById('tg').innerHTML=db.tpls.map(t=>`<div class="card-hover bg-white/90 backdrop-blur-md rounded-3xl p-6 border border-white/20 cursor-pointer" onclick='oE(${JSON.stringify(t).replace(/'/g,"&#39;")})'><img src="${t.thumb}" onerror="this.src='https://placehold.co/400?text=IMG'" class="w-full h-48 object-cover rounded-2xl mb-6 bg-slate-100"><h3 class="text-xl font-extrabold">${t.name}</h3><p class="text-xs font-bold text-blue-500 mt-2 uppercase">Ready</p></div>`).join('')}
-function oE(t){document.getElementById('et').innerText=t.name.toUpperCase();ed.value=JSON.stringify(t.config,null,4);sh('ev');sL()}
-function sL(){lnT.innerHTML=Array(ed.value.split('\n').length).fill(0).map((_,i)=>i+1).join('<br>')}
-async function exp(){try{let c=JSON.parse(ed.value),z=new JSZip();z.file("index.html",`<!DOCTYPE html><html><head><title>${c.title}</title><link rel="stylesheet" href="style.css"></head><body>${c.html}\n<script src="script.js"><\/script></body></html>`);z.file("style.css",c.css||"");z.file("script.js",c.js||"");z.file("data.json",JSON.stringify(c,null,2));let b=await z.generateAsync({type:"blob"});saveAs(b,`bnn_export_${Date.now()}.zip`);Swal.fire({icon:'success',title:'EXPORTED',text:'Bundle extracted securely.',confirmButtonColor:'#000'})}catch(e){Swal.fire('Error','Check JSON Syntax','error')}}
-window.onload=init;document.getElementById('je').oninput=sL;
+async function auth(){let n=document.getElementById('un').value,p=document.getElementById('pw').value;if(!n||!p)return Swal.fire('Error','Required','error');if(!isL){if(uDB[n])return Swal.fire('Error','User exists','error');let a=document.getElementById('p_av').files[0],b=document.getElementById('p_bg').files[0];u={n:n,p:p,i:a?await tB64(a):'',bg:b?await tB64(b):'',b:document.getElementById('pb').value||'',fs:[]};uDB[n]=u;localStorage.setItem('bnn_udb',JSON.stringify(uDB))}else{if(!uDB[n]||uDB[n].p!==p)return Swal.fire('Error','Invalid credentials','error');u=uDB[n]}sessionStorage.setItem('bnn_cur',n);upd();ld(()=>sh('dv'))}
+function ld(cb){sh('lv');setTimeout(()=>{cb()},1200)}
+function lo(){sessionStorage.removeItem('bnn_cur');location.reload()}
+function upd(){if(!u)return;document.getElementById('dn').innerText=u.n;document.getElementById('di').src=u.i||`https://ui-avatars.com/api/?name=${u.n}&background=random`;document.getElementById('pbio').value=u.b;if(u.bg)document.body.style.backgroundImage=`url(${u.bg})`;else document.body.style.background='#f8fafc';rG()}
+async function svP(){let a=document.getElementById('pi_f').files[0],b=document.getElementById('pb_f').files[0];if(a)u.i=await tB64(a);if(b)u.bg=await tB64(b);u.b=document.getElementById('pbio').value;uDB[u.n]=u;localStorage.setItem('bnn_udb',JSON.stringify(uDB));upd();sh('dv');Swal.fire('Synced','Profile stored locally','success')}
+function sh(id){document.querySelectorAll('.v').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='dv'){gsap.from("#tg > div, #fg > div",{opacity:0,y:20,stagger:.05,duration:.5,ease:"back.out(1.7)"});document.getElementById('db-foot').style.display='flex'}else{document.getElementById('db-foot').style.display='none'}}
+function rG(q=''){let ts=db.tpls.filter(t=>t.name.toLowerCase().includes(q.toLowerCase()));document.getElementById('tg').innerHTML=ts.map(t=>`<div class="card-hover glass rounded-[2rem] p-5 cursor-pointer border border-white/40" onclick='ld(()=>oE(${JSON.stringify(t).replace(/'/g,"&#39;")}))'><img src="${t.thumb||''}" onerror="this.src='https://placehold.co/400?text=TPL'" class="w-full h-32 object-cover rounded-2xl mb-4"><h3 class="text-lg font-black">${t.name}</h3><p class="text-[10px] font-bold text-blue-600 mt-1 uppercase">Template</p></div>`).join('');let fs=(u.fs||[]).filter(f=>f.n.toLowerCase().includes(q.toLowerCase()));document.getElementById('fg').innerHTML=fs.map((f,i)=>`<div class="card-hover glass rounded-2xl p-4 cursor-pointer flex items-center gap-3" onclick='ld(()=>oF(${i}))'><div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0"><i class="fas fa-file"></i></div><div class="overflow-hidden"><h3 class="text-sm font-bold truncate">${f.n}</h3><p class="text-[10px] text-slate-500 uppercase">${f.t.split('/')[1]||f.t}</p></div></div>`).join('')}
+function srch(q){rG(q)}
+function oE(t){document.getElementById('et').innerText=t.name;ed.value=JSON.stringify(t.config||t,null,4);ed.oninput=sL;sh('ev');sL()}
+function sL(){let t=ed.value;lnT.innerHTML=Array(t.split('\n').length).fill(0).map((_,i)=>i+1).join('<br>')}
+async function hF(e){let f=e.files[0];if(!f)return;ld(async ()=>{let r=f.type.includes('text')||f.type.includes('json')||f.type.includes('javascript')||f.type.includes('html')||f.type.includes('css')?await tTxt(f):await tB64(f);if(!u.fs)u.fs=[];u.fs.push({n:f.name,t:f.type,s:f.size,d:r});uDB[u.n]=u;localStorage.setItem('bnn_udb',JSON.stringify(uDB));rG();sh('dv');Swal.fire('Stored','File saved to local workspace','success');e.value=''})}
+function oF(i){cf=i;let f=u.fs[i],c=document.getElementById('fv_c'),b=document.getElementById('f_sv');document.getElementById('f_nm').innerText=f.n;document.getElementById('f_sz').innerText=(f.s/1024).toFixed(2)+' KB';b.style.display='none';c.innerHTML='';if(f.t.includes('image'))c.innerHTML=`<img src="${f.d}">`;else if(f.t.includes('video'))c.innerHTML=`<video src="${f.d}" controls autoplay></video>`;else if(f.t.includes('audio'))c.innerHTML=`<audio src="${f.d}" controls autoplay></audio>`;else if(f.t.includes('pdf'))c.innerHTML=`<iframe src="${f.d}" class="w-full h-full rounded-2xl bg-white"></iframe>`;else{c.innerHTML=`<textarea id="f_ed" class="w-full h-full bg-transparent text-green-400 font-mono text-sm outline-none resize-none custom-scroll p-4" spellcheck="false"></textarea>`;document.getElementById('f_ed').value=f.d;b.style.display='block'}sh('fv')}
+function svF(){let v=document.getElementById('f_ed').value;u.fs[cf].d=v;uDB[u.n]=u;localStorage.setItem('bnn_udb',JSON.stringify(uDB));Swal.fire('Saved','File updated successfully','success')}
+async function exp(){let c=ed.value,z=new JSZip();z.file("config.json",c);let b=await z.generateAsync({type:"blob"});saveAs(b,`bnn_export_${Date.now()}.zip`);Swal.fire('Exported','Data bundled successfully','success')}
+window.onload=init;
